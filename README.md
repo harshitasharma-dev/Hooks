@@ -10,8 +10,8 @@ In this repository, I have created a very basic example demonstrating(with prope
 Make sure you have Node installed in your system. If not, you can download from "https://nodejs.org/en/download/"
 CLONE this repository using below mentioned steps: 
 
-  1> You can clone this repository by using command "git clone "repository_url" ", in GIT BASH.
+  1. You can clone this repository by using command "git clone "repository_url" ", in GIT BASH.
   
-  2> After that you can install all the node modules using "npm install --save" or "npm i".
+  2. After that you can install all the node modules using "npm install --save" or "npm i".
   
-  3> Later you can run the project by using "npm start".
+  3. Later you can run the project by using "npm start".
