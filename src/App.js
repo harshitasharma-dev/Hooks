@@ -1,42 +1,79 @@
 import React, {useState} from 'react';
 import './App.css';
 
-//We can never write Hooks in a class
-//Hooks allow you to create or update state value without creating a class.
-
 function App() {
 
-  // useState is a kind of hook === it is a function which returns a state and a function with which--- 
-  // ---we can update the value of state.
+  // people and finalPeopleList is a state variable and useState is a hook. 
+  // To understand this more, you can refer Hook repository
+  const [people, setFields] = useState([{name:""}])
+  const [finalPeopleList, setPeople] = useState([{name:null}])
 
-  // count is a state, and setCount is a function to update the state.
-  // 1 is the default or initial value of state variable. 
-  const [count, setCount] = useState(1);
+  //this function will be called whenever you will click on "Click to Add" button.
+  //In this, first I am creating a new array assigning it the previous "people" array value 
+  //and then pushing the new value to it and then again passing it to people array
+  function addingParamter(){
+    const newValue = [...people]
+    newValue.push({name:null})
+    setFields(newValue)
+  }
 
-//   I have created this function so that I can update the value of state in a separate function---
-//   ---passing the new and update value of state in the function to update the value of state
+  //this function is just to capture the event target value, which user is entering it
+  //and then passing it to particular key of people object
+  function settingValue(index, event){
+    const newValue = [...people]
+    newValue[index].name = event.target.value
+    setFields(newValue)
+  }
 
-  function handleClick(currentValue){
-    var newValue = currentValue+1
-    //In this way we can pass the new value in this function to update the state.
-    setCount(newValue);
+
+  //this function is to particularly remove that object belonging to index from people array
+  function removeParameter(index){
+    if (index>0) {
+      const newValue = [...people]
+      newValue.splice(index, 1)
+      setFields(newValue)
+    }
+    //this alert will come if user will try to remove all the values
+    else{
+      alert("Sorry! you can not remove it. Minimum one field required to submit.")
+    }
+  }
+
+  function submitList (){
+    setPeople(people)
   }
 
   return (
     <div className="App">
-      <h1>HOOKS DEMONSTRATION</h1>
-    {/* Here we are using ternary operator to make variance in display of text */}
-      {count===1 
-      ? 
-          (<p> Count value {count}</p>)
-      :
-          (<p> Count new value {count}</p>)  
-      }
-      {/* To directly update the state value using useState function */}
-      {/* <button onClick= {()=>setCount(count+1)}>Click me !!</button> */}
+      <h1>DEMONSTRATION OF DYNAMIC FORM</h1>
+      <button onClick={()=>addingParamter()}>Click to Add</button>
+      {people.map((value, index)=>{
+        return(
+          <div>
+            <input
+              type="text"
+              placeholder="Enter First Name"
+              value={value.name || ""}
+              onChange= {event => settingValue(index, event)}
+            />
+            <button onClick={()=>removeParameter(index)}>
+              X
+            </button>
+            {/* <h3>{value.name}</h3> */}
+          </div>
+        )
+      })}
+      <button onClick={()=>submitList()}>SUBMIT</button>
 
-      {/* Another way to update the state by creating a separate function */}
-      <button onClick= {()=>handleClick(count)}>Click me !!</button>
+
+      {finalPeopleList.map((value, index)=>{
+        return(
+          <div>
+            {value.name}
+          </div>
+        )
+      })
+      }
     </div>
   );
 }
