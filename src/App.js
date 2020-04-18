@@ -16,6 +16,10 @@ function App() {
     newValue.push({name:null})
     setFields(newValue)
   }
+  
+ useEffect(()=>{
+    document.title=`Count ${count}`
+  },[count])
 
   //this function is just to capture the event target value, which user is entering it
   //and then passing it to particular key of people object
